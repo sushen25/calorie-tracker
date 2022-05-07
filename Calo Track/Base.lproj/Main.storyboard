@@ -214,7 +214,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Today" id="wn2-eD-aoJ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Cq-gC-bvL"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Cq-gC-bvL">
+                            <connections>
+                                <segue destination="N3h-dj-AEl" kind="show" id="y5I-el-jb2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="caloriesLabel" destination="w8f-od-wha" id="oAe-3R-xmX"/>
@@ -227,6 +231,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="upr-1L-gmi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2234.7826086956525" y="1654.6875"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="ka0-Ch-Dr1">
+            <objects>
+                <tableViewController id="N3h-dj-AEl" customClass="SearchFoodsTableViewController" customModule="Calo_Track" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="tsh-sd-M1e">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodCell" textLabel="zUq-X4-WQ3" detailTextLabel="9eX-l0-G8e" style="IBUITableViewCellStyleSubtitle" id="GJd-s1-GXS">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GJd-s1-GXS" id="l8G-P9-wfW">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zUq-X4-WQ3">
+                                            <rect key="frame" x="20" y="6" width="25" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9eX-l0-G8e">
+                                            <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="N3h-dj-AEl" id="kvY-0T-gaD"/>
+                            <outlet property="delegate" destination="N3h-dj-AEl" id="xyh-sG-bZ1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Search" id="fB9-18-IQm"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nhp-GS-n4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3209" y="1655"/>
         </scene>
         <!--Home-->
         <scene sceneID="WeF-0a-hHM">
