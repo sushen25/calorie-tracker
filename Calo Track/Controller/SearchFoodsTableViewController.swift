@@ -14,7 +14,10 @@ class SearchFoodsTableViewController: UITableViewController, UISearchBarDelegate
     let REQUEST_STRING = "https://trackapi.nutritionix.com/v2/search/instant?query="
     
     var newFoods = [FoodData]()
+    var selectedFood: FoodData?
     var indicator = UIActivityIndicatorView()
+    
+    let FOOD_DETAIL_SEGUE = "foodDetailSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +27,6 @@ class SearchFoodsTableViewController: UITableViewController, UISearchBarDelegate
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        print("VIEW LOADED")
         
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
@@ -64,11 +65,14 @@ class SearchFoodsTableViewController: UITableViewController, UISearchBarDelegate
         let food = newFoods[indexPath.row]
 
         cell.textLabel?.text = food.foodName!
-        print("BRAND NAME")
-        print(food.brandName)
         cell.detailTextLabel?.text = food.brandName!
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedFood = newFoods[indexPath.row]
+        performSegue(withIdentifier: FOOD_DETAIL_SEGUE, sender: nil)
     }
     
     // MARK: - API Methods
@@ -84,7 +88,7 @@ class SearchFoodsTableViewController: UITableViewController, UISearchBarDelegate
         ]
         
         guard let requestUrl = searchURLComponents.url else {
-            print("Invalid URL")
+            print("Invalid Foods Search URL")
             return
         }
         
@@ -132,6 +136,14 @@ class SearchFoodsTableViewController: UITableViewController, UISearchBarDelegate
         
         Task {
             await requestFoodsNamed(searchText)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == FOOD_DETAIL_SEGUE {
+            let destinaion = segue.destination as! FoodDetailViewController
+            destinaion.selectedFood = selectedFood!
+            
         }
     }
 

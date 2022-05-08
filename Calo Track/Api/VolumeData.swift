@@ -23,6 +23,8 @@ class FoodData: NSObject, Decodable {
     var calories: Int?
     var brandName: String?
     var imageUrl: String?
+    var nixItemId: String?
+    
     
     required init(from decoder: Decoder) throws {
         let foodContainer = try decoder.container(keyedBy: FoodKeys.self)
@@ -32,6 +34,8 @@ class FoodData: NSObject, Decodable {
         servingUnit = try foodContainer.decode(String.self, forKey: .servingUnit)
         calories = try foodContainer.decode(Int.self, forKey: .calories)
         brandName = try foodContainer.decode(String.self, forKey: .brandName)
+        nixItemId = try foodContainer.decode(String.self, forKey: .nixItemId)
+        
         imageUrl = try imageContainer.decode(String.self, forKey: .imageUrl)
     }
     
@@ -41,6 +45,7 @@ class FoodData: NSObject, Decodable {
         case calories = "nf_calories"
         case brandName = "brand_name"
         case photo
+        case nixItemId = "nix_item_id"
     }
     
     private enum ImageKeys: String, CodingKey {
