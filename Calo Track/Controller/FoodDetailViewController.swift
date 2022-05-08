@@ -19,10 +19,12 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var fatLabel: UILabel!
     
     
+    @IBOutlet weak var servingUnitPicker: UIPickerView!
     @IBOutlet weak var numberOfServingsTextField: UITextField!
     @IBOutlet weak var mealPicker: UIPickerView!
     
     var selectedFood: FoodData?
+    var foodDetails: FoodDetailData?
     var servingSize: Int?
     
     var mealPickerData: [String] = [String]()
@@ -37,11 +39,13 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // Picker views
         mealPicker.delegate = self
         mealPicker.dataSource = self
+        servingUnitPicker.delegate = self
+        servingUnitPicker.dataSource = self
+        
 
         
         mealPickerData = ["breakfast", "lunch", "dinner", "snacks"]
         
-        print(selectedFood!.nixItemId)
         
         // Add a loading indicator view
         indicator.style = UIActivityIndicatorView.Style.large
@@ -68,6 +72,8 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == mealPicker {
             return mealPickerData.count
+        } else if pickerView == servingUnitPicker {
+            return 1
         }
         
         return 0
@@ -76,6 +82,8 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == mealPicker {
             return mealPickerData[row]
+        } else if pickerView == servingUnitPicker {
+            return foodDetails?.servingUnit!
         }
         
         return nil
@@ -94,6 +102,7 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         carbsLabel.text = "\(data.carbs!)g Carbs"
         fatLabel.text = "\(data.fat!)g Fat"
         
+        servingUnitPicker.reloadAllComponents()
     }
     
     
@@ -123,7 +132,6 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         do {
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
-            print(String(decoding: data, as: UTF8.self))
             
             DispatchQueue.main.async {
                 self.indicator.stopAnimating()
@@ -133,6 +141,7 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let decoder = JSONDecoder()
             let volumeData = try decoder.decode(VolumeFoodDetailData.self, from: data)
             
+            foodDetails = volumeData.foods?.first
             setFoodDetails(foodDetailData: volumeData.foods?.first)
             
         } catch let error {

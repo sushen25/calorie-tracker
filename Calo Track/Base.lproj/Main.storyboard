@@ -319,50 +319,6 @@
                                     <constraint firstAttribute="height" constant="0.5" id="pQt-en-C6O"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="QBa-sQ-jWM">
-                                <rect key="frame" x="20" y="464.5" width="374" height="411.5"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DtD-7N-gKz">
-                                        <rect key="frame" x="0.0" y="0.0" width="187" height="411.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Serving Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvO-eb-e2N">
-                                                <rect key="frame" x="0.0" y="0.0" width="187" height="137"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Servings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVN-Jh-OWN">
-                                                <rect key="frame" x="0.0" y="137" width="187" height="137.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akg-jE-ntp">
-                                                <rect key="frame" x="0.0" y="274.5" width="187" height="137"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="xgO-9u-v4o">
-                                        <rect key="frame" x="187" y="0.0" width="187" height="411.5"/>
-                                        <subviews>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUB-UN-w6M">
-                                                <rect key="frame" x="0.0" y="0.0" width="187" height="190.5"/>
-                                            </pickerView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UZK-Dy-NpN">
-                                                <rect key="frame" x="0.0" y="190.5" width="187" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F6d-2h-mbL">
-                                                <rect key="frame" x="0.0" y="220.5" width="187" height="191"/>
-                                            </pickerView>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="qjb-XU-CAj">
                                 <rect key="frame" x="20" y="424" width="374" height="20.5"/>
                                 <subviews>
@@ -386,12 +342,60 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TYN-M4-9e6">
+                                <rect key="frame" x="20" y="464.5" width="374" height="377.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PWg-lt-WV1">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="126"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Serving Unit:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9C-PT-gsv">
+                                                <rect key="frame" x="0.0" y="52.5" width="187" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYZ-wK-nyh">
+                                                <rect key="frame" x="187" y="0.0" width="187" height="126"/>
+                                            </pickerView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ydf-7c-BvK">
+                                        <rect key="frame" x="0.0" y="126" width="374" height="125.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Servings:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubf-MY-Kw9">
+                                                <rect key="frame" x="0.0" y="52.5" width="187" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="redraw" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rha-6I-UcU">
+                                                <rect key="frame" x="187" y="45.5" width="187" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="c1k-Bx-aAj">
+                                        <rect key="frame" x="0.0" y="251.5" width="374" height="126"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IdT-ye-MGP">
+                                                <rect key="frame" x="0.0" y="53" width="187" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnR-aN-wEh">
+                                                <rect key="frame" x="187" y="0.0" width="187" height="126"/>
+                                            </pickerView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KwI-u4-Ri7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="UwT-jc-P6A" firstAttribute="leading" secondItem="KwI-u4-Ri7" secondAttribute="leading" constant="20" id="2q9-5x-YmH"/>
-                            <constraint firstAttribute="trailing" secondItem="QBa-sQ-jWM" secondAttribute="trailing" constant="20" id="46N-B1-wTv"/>
                             <constraint firstItem="UwT-jc-P6A" firstAttribute="top" secondItem="7zu-9m-60W" secondAttribute="bottom" constant="10" id="4P7-9X-hUM"/>
                             <constraint firstItem="yyX-XO-lYM" firstAttribute="top" secondItem="KwI-u4-Ri7" secondAttribute="top" constant="20" id="BCk-9O-5yN"/>
                             <constraint firstItem="KwI-u4-Ri7" firstAttribute="trailing" secondItem="yyX-XO-lYM" secondAttribute="trailing" constant="20" id="D4W-gv-pcK"/>
@@ -400,13 +404,14 @@
                             <constraint firstItem="qjb-XU-CAj" firstAttribute="leading" secondItem="KwI-u4-Ri7" secondAttribute="leading" constant="20" id="FVc-d1-ipJ"/>
                             <constraint firstItem="7zu-9m-60W" firstAttribute="top" secondItem="yyX-XO-lYM" secondAttribute="bottom" constant="20" id="G8x-6z-2xh"/>
                             <constraint firstItem="KwI-u4-Ri7" firstAttribute="trailing" secondItem="qjb-XU-CAj" secondAttribute="trailing" constant="20" id="GDV-Kl-40R"/>
-                            <constraint firstItem="QBa-sQ-jWM" firstAttribute="leading" secondItem="KwI-u4-Ri7" secondAttribute="leading" constant="20" id="LPp-TC-2K7"/>
+                            <constraint firstItem="KwI-u4-Ri7" firstAttribute="trailing" secondItem="TYN-M4-9e6" secondAttribute="trailing" constant="20" id="JvG-dI-chj"/>
                             <constraint firstItem="qcH-Gg-xgq" firstAttribute="leading" secondItem="KwI-u4-Ri7" secondAttribute="leading" constant="20" id="N5J-dT-iX8"/>
-                            <constraint firstItem="QBa-sQ-jWM" firstAttribute="top" secondItem="qjb-XU-CAj" secondAttribute="bottom" constant="20" id="TZL-Ls-up5"/>
                             <constraint firstItem="7zu-9m-60W" firstAttribute="leading" secondItem="KwI-u4-Ri7" secondAttribute="leading" constant="20" id="U21-3F-QL1"/>
-                            <constraint firstAttribute="bottom" secondItem="QBa-sQ-jWM" secondAttribute="bottom" constant="20" id="b3n-Qr-h4Q"/>
                             <constraint firstItem="KwI-u4-Ri7" firstAttribute="trailing" secondItem="qcH-Gg-xgq" secondAttribute="trailing" constant="20" id="e26-Za-SrH"/>
+                            <constraint firstItem="KwI-u4-Ri7" firstAttribute="bottom" secondItem="TYN-M4-9e6" secondAttribute="bottom" constant="20" id="ksg-zn-dNl"/>
+                            <constraint firstItem="TYN-M4-9e6" firstAttribute="leading" secondItem="KwI-u4-Ri7" secondAttribute="leading" constant="20" id="myB-8Y-kag"/>
                             <constraint firstItem="yyX-XO-lYM" firstAttribute="leading" secondItem="KwI-u4-Ri7" secondAttribute="leading" constant="20" id="qJo-HM-uQl"/>
+                            <constraint firstItem="TYN-M4-9e6" firstAttribute="top" secondItem="qjb-XU-CAj" secondAttribute="bottom" constant="20" id="rCy-S8-r2h"/>
                             <constraint firstItem="qcH-Gg-xgq" firstAttribute="top" secondItem="UwT-jc-P6A" secondAttribute="bottom" constant="40" id="sPq-Hn-v9A"/>
                             <constraint firstItem="KwI-u4-Ri7" firstAttribute="trailing" secondItem="UwT-jc-P6A" secondAttribute="trailing" constant="20" id="zXo-0f-sHC"/>
                         </constraints>
@@ -418,10 +423,10 @@
                         <outlet property="fatLabel" destination="m4j-A6-PbB" id="JcY-Ld-krD"/>
                         <outlet property="foodImageView" destination="yyX-XO-lYM" id="8KA-Qv-j0q"/>
                         <outlet property="foodTitleLabel" destination="7zu-9m-60W" id="ZZ3-tV-Piq"/>
-                        <outlet property="mealPicker" destination="F6d-2h-mbL" id="EDe-GO-A6W"/>
-                        <outlet property="numberOfServingsTextField" destination="UZK-Dy-NpN" id="PGf-w2-Wc0"/>
+                        <outlet property="mealPicker" destination="qnR-aN-wEh" id="TjW-wr-Jh7"/>
+                        <outlet property="numberOfServingsTextField" destination="Rha-6I-UcU" id="ZWg-vz-PiE"/>
                         <outlet property="proteinLabel" destination="5Me-VL-QDe" id="0dv-oS-zyg"/>
-                        <outlet property="servingSizePicker" destination="vUB-UN-w6M" id="Fhj-cn-H01"/>
+                        <outlet property="servingUnitPicker" destination="iYZ-wK-nyh" id="rwW-LW-Hmt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bce-sT-3Nx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
