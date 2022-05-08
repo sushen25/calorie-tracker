@@ -416,7 +416,13 @@
                             <constraint firstItem="KwI-u4-Ri7" firstAttribute="trailing" secondItem="UwT-jc-P6A" secondAttribute="trailing" constant="20" id="zXo-0f-sHC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Food" id="EhD-M4-VpW"/>
+                    <navigationItem key="navigationItem" title="Add Food" id="EhD-M4-VpW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NVa-HK-W4L">
+                            <connections>
+                                <action selector="addFoodToTracking:" destination="giZ-TG-QwS" id="eIg-3g-3Mx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="brandNameLabel" destination="UwT-jc-P6A" id="CBN-ZH-Ptm"/>
                         <outlet property="carbsLabel" destination="hZ2-tr-vBa" id="uv7-Xm-ora"/>

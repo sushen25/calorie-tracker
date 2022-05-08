@@ -7,11 +7,13 @@
 
 import UIKit
 
-class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, URLSessionTaskDelegate, URLSessionDownloadDelegate {
     
     var indicator = UIActivityIndicatorView(style: .large)
     
     @IBOutlet weak var foodImageView: UIImageView!
+    var foodImageDownloadSession: URLSession?
+    
     @IBOutlet weak var foodTitleLabel: UILabel!
     @IBOutlet weak var brandNameLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
@@ -42,8 +44,6 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         servingUnitPicker.delegate = self
         servingUnitPicker.dataSource = self
         
-
-        
         mealPickerData = ["breakfast", "lunch", "dinner", "snacks"]
         
         
@@ -57,12 +57,30 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         ])
         
         indicator.startAnimating()
+        
+        // Fetch image
+        let config = URLSessionConfiguration.background(withIdentifier: "foodImageSession")
+        let session = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue())
+        foodImageDownloadSession = session
+        let imageUrl = URL(string: (selectedFood?.imageUrl)!)
+        let task = session.downloadTask(with: imageUrl!)
+        task.resume()
+
         // Make call to food detail api
         Task {
             await requestFoodNutrition((selectedFood?.nixItemId)!)
         }
         
     }
+    
+    // MARK: - methods
+    override func viewWillDisappear(_ animated: Bool) {
+        foodImageDownloadSession?.finishTasksAndInvalidate()
+    }
+    
+    @IBAction func addFoodToTracking(_ sender: Any) {
+    }
+    
     
     // MARK: - Picker view methods
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -148,6 +166,19 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             print(error)
         }
     }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        do {
+            let data = try Data(contentsOf: location)
+            
+            DispatchQueue.main.async {
+                self.foodImageView.image = UIImage(data: data)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+
     
 
     /*
