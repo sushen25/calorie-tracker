@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BzT-hQ-fgD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l64-mj-ZHd">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -41,6 +41,7 @@
                     <navigationItem key="navigationItem" title="Welcome" id="lxq-Pg-CYn"/>
                     <connections>
                         <segue destination="A0T-Qx-Qgl" kind="show" identifier="userAuthenticatonSegue" id="e6r-kw-poU"/>
+                        <segue destination="xAB-Py-ZED" kind="show" identifier="userAuthenticatedSegue" id="xvp-Pw-CXg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iG6-Qu-g9I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -480,6 +481,9 @@
             <point key="canvasLocation" x="1324.6376811594205" y="1654.6875"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="xvp-Pw-CXg"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

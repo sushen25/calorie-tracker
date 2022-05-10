@@ -12,7 +12,7 @@ class UserAuthenticationViewController: UIViewController {
     
     var authenticationType: AuthenticationType?
     var isSignIn: Bool?
-    var firebaseAuth: Auth?
+    var databaseController: DatabaseProtocol?
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -32,8 +32,8 @@ class UserAuthenticationViewController: UIViewController {
             actionButton.titleLabel?.text = "Sign Up"
         }
         
-        firebaseAuth = Auth.auth()
-         
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         
     }
     
@@ -46,32 +46,23 @@ class UserAuthenticationViewController: UIViewController {
         
         if isSignIn! {
             print("Signing In \(email)")
-            firebaseAuth?.signIn(withEmail: email, password: password) { (authResult, error) in
-                if let errorCreatingUser = error {
-                    print("error signing in: \(errorCreatingUser.localizedDescription)")
-                } else if let result = authResult {
-                    print("Signed In")
-                    print(result)
-                    print(result.user)
-                    print(result.user.uid)
-                    self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
-                }
-            }
+            let _ = databaseController?.signInUser(email: email, password: password)
             
+            // TODO - check if user is succesfully signed in
+//            self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
         } else {
             // Sign Up
             print("Signing Up \(email)")
-            firebaseAuth?.createUser(withEmail: email, password: password) { (authResult, error) in
-                if let errorCreatingUser = error {
-                    print("error creating user: \(errorCreatingUser.localizedDescription)")
-                } else if let result = authResult {
-                    print(result)
-                }
-            }
+//            firebaseAuth?.createUser(withEmail: email, password: password) { (authResult, error) in
+//                if let errorCreatingUser = error {
+//                    print("error creating user: \(errorCreatingUser.localizedDescription)")
+//                } else if let result = authResult {
+//                    print(result)
+//                }
+//            }
         }
         
     }
-    
     
 
     /*
