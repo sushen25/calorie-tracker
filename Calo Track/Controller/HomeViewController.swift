@@ -8,32 +8,38 @@
 import UIKit
 import FirebaseAuth
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, DatabaseListener {
+    var listenerType: ListenerType = .users
     
-    var firebaseAuth: Auth?
+    var databaseController: DatabaseProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        firebaseAuth = Auth.auth()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
     }
     
     @IBAction func signOutPressed(_ sender: Any) {
-        do {
-            try firebaseAuth?.signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-        
-        // pop 2 view controllers to navigate to the welcome screen
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[0], animated: true)
+        databaseController?.signOutUser()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
     
-
+    func onUserChange(change: DatabaseChange) {
+        if change == .notAuthenticated {
+            databaseController?.removeListener(listener: self)
+            // pop 2 view controllers to navigate to the welcome screen
+            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            self.navigationController!.popToViewController(viewControllers[0], animated: true)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

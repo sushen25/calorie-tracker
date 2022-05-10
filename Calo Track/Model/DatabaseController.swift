@@ -63,8 +63,13 @@ class DatabaseController: NSObject, DatabaseProtocol {
         listeners.removeDelegate(listener)
     }
     
-    func addUser(email: String) {
-        //
+    func signUpUser(email: String, password: String) {
+        authController.createUser(withEmail: email, password: password) { (authResult, error) in
+            if let errorCreatingUser = error {
+                print("error signing in: \(errorCreatingUser.localizedDescription)")
+                return
+            }
+        }
     }
     
     func signInUser(email: String, password: String) {
@@ -76,8 +81,14 @@ class DatabaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func signOutUser(uid: String) {
-        //
+    func signOutUser() {
+        do {
+            try authController.signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+        
+        
     }
     
     

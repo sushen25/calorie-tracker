@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class UserAuthenticationViewController: UIViewController {
+class UserAuthenticationViewController: UIViewController, DatabaseListener {
     
     var authenticationType: AuthenticationType?
     var isSignIn: Bool?
@@ -17,6 +17,8 @@ class UserAuthenticationViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var actionButton: UIButton!
+    
+    var listenerType: ListenerType = .users
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,11 @@ class UserAuthenticationViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
     @IBAction func actionButtonPressed(_ sender: Any) {
         
         guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
@@ -45,23 +52,19 @@ class UserAuthenticationViewController: UIViewController {
         }
         
         if isSignIn! {
-            print("Signing In \(email)")
-            let _ = databaseController?.signInUser(email: email, password: password)
-            
-            // TODO - check if user is succesfully signed in
-//            self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+            databaseController?.signInUser(email: email, password: password)
         } else {
-            // Sign Up
-            print("Signing Up \(email)")
-//            firebaseAuth?.createUser(withEmail: email, password: password) { (authResult, error) in
-//                if let errorCreatingUser = error {
-//                    print("error creating user: \(errorCreatingUser.localizedDescription)")
-//                } else if let result = authResult {
-//                    print(result)
-//                }
-//            }
+            databaseController?.signUpUser(email: email, password: password)
         }
         
+    }
+    
+    func onUserChange(change: DatabaseChange) {
+        databaseController?.removeListener(listener: self)
+        
+        if change == .authenticated {
+            self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+        }
     }
     
 

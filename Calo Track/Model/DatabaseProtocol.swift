@@ -35,7 +35,7 @@ protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
     
-    func addUser(email: String)
+    func signUpUser(email: String, password: String)
     func signInUser(email: String, password: String)
-    func signOutUser(uid: String)
+    func signOutUser()
 }
