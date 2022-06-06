@@ -43,4 +43,7 @@ protocol DatabaseProtocol: AnyObject {
     
     func addMeal(_ data: [String: Any])
     func getMealsForDate(_ date: Date) -> [String: Any]
+    
+    func addWeight(weight: Double, date: Date)
+    func getWeightsForUser()
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D12C873284DEEA300EEDADE /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 6D12C872284DEEA300EEDADE /* Charts */; };
+		6D12C879284DF19800EEDADE /* WeightTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12C878284DF19800EEDADE /* WeightTrackViewController.swift */; };
+		6D12C87C284DF3D600EEDADE /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 6D12C87B284DF3D600EEDADE /* TinyConstraints */; };
+		6D12C87E284E0A2800EEDADE /* AddWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12C87D284E0A2800EEDADE /* AddWeightViewController.swift */; };
 		6D5D6DD7280DC244002E2613 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D6DD6280DC244002E2613 /* AppDelegate.swift */; };
 		6D5D6DD9280DC244002E2613 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D6DD8280DC244002E2613 /* SceneDelegate.swift */; };
 		6D5D6DDB280DC244002E2613 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D6DDA280DC244002E2613 /* ViewController.swift */; };
@@ -35,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D12C878284DF19800EEDADE /* WeightTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTrackViewController.swift; sourceTree = "<group>"; };
+		6D12C87D284E0A2800EEDADE /* AddWeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightViewController.swift; sourceTree = "<group>"; };
 		6D5D6DD3280DC244002E2613 /* Calo Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calo Track.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5D6DD6280DC244002E2613 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D5D6DD8280DC244002E2613 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +70,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D12C87C284DF3D600EEDADE /* TinyConstraints in Frameworks */,
 				6DF65DE92827C61B00D9BFA2 /* FirebaseFirestoreSwift in Frameworks */,
+				6D12C873284DEEA300EEDADE /* Charts in Frameworks */,
 				6D5D6DEC280DC6E5002E2613 /* FirebaseAuth in Frameworks */,
 				6DF65DE72827C61B00D9BFA2 /* FirebaseFirestore in Frameworks */,
 				6D5D6DEE280DC6E5002E2613 /* FirebaseFirestore in Frameworks */,
@@ -75,6 +83,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D12C875284DF13F00EEDADE /* WeightTrak */ = {
+			isa = PBXGroup;
+			children = (
+				6D12C878284DF19800EEDADE /* WeightTrackViewController.swift */,
+				6D12C87D284E0A2800EEDADE /* AddWeightViewController.swift */,
+			);
+			path = WeightTrak;
+			sourceTree = "<group>";
+		};
+		6D12C876284DF14B00EEDADE /* AuthTrak */ = {
+			isa = PBXGroup;
+			children = (
+				6D5D6DF5280DCB5B002E2613 /* WelcomeViewController.swift */,
+				6D5D6DF7280DCB6B002E2613 /* UserAuthenticationViewController.swift */,
+				6D5D6E02280E7B90002E2613 /* HomeViewController.swift */,
+			);
+			path = AuthTrak;
+			sourceTree = "<group>";
+		};
+		6D12C877284DF16000EEDADE /* FoodTrak */ = {
+			isa = PBXGroup;
+			children = (
+				6DF8A531282290290010DAB5 /* TrackingViewController.swift */,
+				6DF8A5352822AF820010DAB5 /* SearchFoodsTableViewController.swift */,
+				6DF65DDD2826639000D9BFA2 /* FoodDetailViewController.swift */,
+			);
+			path = FoodTrak;
+			sourceTree = "<group>";
+		};
 		6D5D6DCA280DC244002E2613 = {
 			isa = PBXGroup;
 			children = (
@@ -124,12 +161,9 @@
 		6D5D6DF4280DCB2B002E2613 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6D5D6DF5280DCB5B002E2613 /* WelcomeViewController.swift */,
-				6D5D6DF7280DCB6B002E2613 /* UserAuthenticationViewController.swift */,
-				6D5D6E02280E7B90002E2613 /* HomeViewController.swift */,
-				6DF8A531282290290010DAB5 /* TrackingViewController.swift */,
-				6DF8A5352822AF820010DAB5 /* SearchFoodsTableViewController.swift */,
-				6DF65DDD2826639000D9BFA2 /* FoodDetailViewController.swift */,
+				6D12C877284DF16000EEDADE /* FoodTrak */,
+				6D12C876284DF14B00EEDADE /* AuthTrak */,
+				6D12C875284DF13F00EEDADE /* WeightTrak */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -165,6 +199,8 @@
 				6D5D6DEF280DC6E5002E2613 /* FirebaseFirestoreSwift */,
 				6DF65DE62827C61B00D9BFA2 /* FirebaseFirestore */,
 				6DF65DE82827C61B00D9BFA2 /* FirebaseFirestoreSwift */,
+				6D12C872284DEEA300EEDADE /* Charts */,
+				6D12C87B284DF3D600EEDADE /* TinyConstraints */,
 			);
 			productName = "Calo Track";
 			productReference = 6D5D6DD3280DC244002E2613 /* Calo Track.app */;
@@ -197,6 +233,8 @@
 			packageReferences = (
 				6D5D6DEA280DC6E5002E2613 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6DF65DE52827C61B00D9BFA2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6D12C871284DEEA300EEDADE /* XCRemoteSwiftPackageReference "Charts" */,
+				6D12C87A284DF3D600EEDADE /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 			);
 			productRefGroup = 6D5D6DD4280DC244002E2613 /* Products */;
 			projectDirPath = "";
@@ -234,11 +272,13 @@
 				6DF65DDE2826639000D9BFA2 /* FoodDetailViewController.swift in Sources */,
 				6DF65DED2827CEC200D9BFA2 /* DatabaseController.swift in Sources */,
 				6DF8A532282290290010DAB5 /* TrackingViewController.swift in Sources */,
+				6D12C879284DF19800EEDADE /* WeightTrackViewController.swift in Sources */,
 				6DF65DEB2827C9CE00D9BFA2 /* User.swift in Sources */,
 				6D5D6DF6280DCB5B002E2613 /* WelcomeViewController.swift in Sources */,
 				6D5D6DDB280DC244002E2613 /* ViewController.swift in Sources */,
 				6D5D6DF8280DCB6B002E2613 /* UserAuthenticationViewController.swift in Sources */,
 				6D5D6DD7280DC244002E2613 /* AppDelegate.swift in Sources */,
+				6D12C87E284E0A2800EEDADE /* AddWeightViewController.swift in Sources */,
 				6D5D6E03280E7B90002E2613 /* HomeViewController.swift in Sources */,
 				6D5D6DD9280DC244002E2613 /* SceneDelegate.swift in Sources */,
 				6DF8A5362822AF820010DAB5 /* SearchFoodsTableViewController.swift in Sources */,
@@ -459,6 +499,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6D12C871284DEEA300EEDADE /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		6D12C87A284DF3D600EEDADE /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roberthein/TinyConstraints.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		6D5D6DEA280DC6E5002E2613 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -478,6 +534,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6D12C872284DEEA300EEDADE /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D12C871284DEEA300EEDADE /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
+		6D12C87B284DF3D600EEDADE /* TinyConstraints */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D12C87A284DF3D600EEDADE /* XCRemoteSwiftPackageReference "TinyConstraints" */;
+			productName = TinyConstraints;
+		};
 		6D5D6DEB280DC6E5002E2613 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6D5D6DEA280DC6E5002E2613 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

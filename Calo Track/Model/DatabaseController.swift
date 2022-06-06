@@ -119,7 +119,7 @@ class DatabaseController: NSObject, DatabaseProtocol {
         
     }
     
-    // MARK: - User Food
+    // MARK: - Food
     func addMeal(_ data: [String: Any]) {
         if let user = currentUser {
             var ref: DocumentReference?
@@ -165,6 +165,36 @@ class DatabaseController: NSObject, DatabaseProtocol {
         
         
         return ["lol": 1]
+    }
+    
+    // MARK: - Weights
+    
+    func addWeight(weight: Double, date: Date) {
+        
+        // Convert date to firebase timestamp
+        // https://stackoverflow.com/questions/55869505/how-to-decode-a-timestamp-from-the-firebase-firestore-in-swift
+        let data = [
+            "weight": weight,
+            "date": FirebaseFirestore.Timestamp(date: date)
+        ] as [String : Any]
+        
+        if let user = currentUser {
+            var ref: DocumentReference?
+            ref = database.collection("User").document(user.uid).collection("Weight").addDocument(data: data) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Weight Data added with ID: \(ref!.documentID)")
+                }
+            }
+            return
+        }
+        
+        print("Error: User not logged in! Cannot add weight data")
+    }
+    
+    func getWeightsForUser() {
+        
     }
     
 }
