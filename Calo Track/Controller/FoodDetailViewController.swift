@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestoreSwift
 
 class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, URLSessionTaskDelegate, URLSessionDownloadDelegate {
     
     var indicator = UIActivityIndicatorView(style: .large)
+    
+    var databaseController: DatabaseProtocol?
     
     @IBOutlet weak var foodImageView: UIImageView!
     var foodImageDownloadSession: URLSession?
@@ -36,6 +40,9 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
         numberOfServingsTextField.keyboardType = .numberPad
         
         // Picker views
@@ -79,6 +86,26 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func addFoodToTracking(_ sender: Any) {
+        guard let numberOfServes = numberOfServingsTextField.text, !numberOfServes.isEmpty else {
+            print("Please enter the number of servings")
+            return
+        }
+        
+        let numServes = Int(numberOfServes)!
+        
+        let data: [String: Any] = [
+            "foodName": (selectedFood?.foodName)!,
+            "nixItemId": (selectedFood?.nixItemId)!,
+            "numberOfServes": numServes,
+            "protein": (foodDetails?.proteinInt)! * numServes,
+            "carbs": (foodDetails?.carbsInt)! * numServes,
+            "fat": (foodDetails?.fatInt)! * numServes,
+            "totalCalories": Int((foodDetails?.calories)!) * numServes,
+            "meal": mealPickerData[mealPicker.selectedRow(inComponent: 0)],
+            "timeAdded": FieldValue.serverTimestamp()
+        ]
+        
+        databaseController?.addMeal(data)
     }
     
     
@@ -116,10 +143,11 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         foodTitleLabel.text = selectedFood?.foodName
         brandNameLabel.text = selectedFood?.brandName
         
-        proteinLabel.text = "\(data.protein!)g Protein"
-        carbsLabel.text = "\(data.carbs!)g Carbs"
-        fatLabel.text = "\(data.fat!)g Fat"
+        proteinLabel.text = "\(data.proteinInt!)g Protein"
+        carbsLabel.text = "\(data.carbsInt!)g Carbs"
+        fatLabel.text = "\(data.fatInt!)g Fat"
         
+        numberOfServingsTextField.placeholder = "1"
         servingUnitPicker.reloadAllComponents()
     }
     
@@ -155,9 +183,12 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.indicator.stopAnimating()
             }
 
+            // print(String(decoding: data, as: UTF8.self))
             
             let decoder = JSONDecoder()
             let volumeData = try decoder.decode(VolumeFoodDetailData.self, from: data)
+            
+            
             
             foodDetails = volumeData.foods?.first
             setFoodDetails(foodDetailData: volumeData.foods?.first)
@@ -178,7 +209,6 @@ class FoodDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             print(error.localizedDescription)
         }
     }
-
     
 
     /*

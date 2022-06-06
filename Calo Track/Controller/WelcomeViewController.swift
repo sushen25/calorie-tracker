@@ -75,5 +75,9 @@ class WelcomeViewController: UIViewController, DatabaseListener {
             self.indicator.stopAnimating()
         }
     }
+    
+    func onFoodListChange(change: DatabaseChange, foodList: [[String: Any]]) {
+        // Do nothing
+    }
 
 }

@@ -22,6 +22,8 @@ class UserAuthenticationViewController: UIViewController, DatabaseListener {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.barTintColor = UIColor.green
 
         // Do any additional setup after loading the view.
         isSignIn = authenticationType == .signIn
@@ -59,12 +61,17 @@ class UserAuthenticationViewController: UIViewController, DatabaseListener {
         
     }
     
+    // MARK: - Listeners
     func onUserChange(change: DatabaseChange) {
         databaseController?.removeListener(listener: self)
         
         if change == .authenticated {
             self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
         }
+    }
+    
+    func onFoodListChange(change: DatabaseChange, foodList: [[String: Any]]) {
+        // Do nothing
     }
     
 

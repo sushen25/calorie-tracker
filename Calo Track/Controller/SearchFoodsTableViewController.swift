@@ -103,6 +103,9 @@ class SearchFoodsTableViewController: UITableViewController, UISearchBarDelegate
         do {
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
             
+//            print("DATAAAAAA")
+//            print(String(decoding: data, as: UTF8.self))
+            
             DispatchQueue.main.async {
                 self.indicator.stopAnimating()
             }

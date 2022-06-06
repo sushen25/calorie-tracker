@@ -7,7 +7,10 @@
 
 import UIKit
 
-class TrackingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TrackingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener {
+    
+    var databaseController: DatabaseProtocol?
+    var listenerType: ListenerType = .users
     
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
@@ -29,17 +32,25 @@ class TrackingViewController: UIViewController, UITableViewDelegate, UITableView
     var dinnerItems: [String] = [String]()
     var snackItems: [String] = [String]()
     
+    var foodItems: [[String: Any]] = [[String: Any]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addTestItems()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
+        // addTestItems()
+        
 
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        databaseController?.addListener(listener: self)
+    }
     
     // MARK: - Table View Methods
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -92,6 +103,9 @@ class TrackingViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    @IBAction func tempGetFoodsButton(_ sender: Any) {
+        let _ = databaseController?.getMealsForDate(Date.now)
+    }
     
     func addTestItems() {
         breakfastItems.append("Nutrigrain")
@@ -106,6 +120,63 @@ class TrackingViewController: UIViewController, UITableViewDelegate, UITableView
         snackItems.append("Up and Go")
     }
     
+    //MARK: - methods
+    func convertFoodListToTableData() {
+        self.resetFoodLists()
+        
+        var totalProtein: Int = 0
+        var totalCarbs: Int = 0
+        var totalFat: Int = 0
+        var totalCalories: Int = 0
+        
+        for food in foodItems {
+            let meal = food["meal"] as! String
+            let foodName = food["foodName"] as! String
+            
+            if (meal == "breakfast") {
+                self.breakfastItems.append(foodName)
+            } else if (meal == "lunch") {
+                self.lunchItems.append(foodName)
+            } else if (meal == "dinner") {
+                self.dinnerItems.append(foodName)
+            } else if (meal == "snack") {
+                self.snackItems.append(foodName)
+            }
+            
+            totalProtein += food["protein"] as! Int
+            totalCarbs += food["carbs"] as! Int
+            totalFat += food["fat"] as! Int
+            totalCalories += food["totalCalories"] as! Int
+            
+        }
+        
+        self.setSummaryLabels(protein: totalProtein, carbs: totalCarbs, fat: totalFat, calories: totalCalories)
+        tableView.reloadData()
+    }
+    
+    func resetFoodLists() {
+        self.breakfastItems.removeAll()
+        self.lunchItems.removeAll()
+        self.dinnerItems.removeAll()
+        self.snackItems.removeAll()
+    }
+    
+    func setSummaryLabels(protein: Int, carbs: Int, fat: Int, calories: Int) {
+        self.proteinLabel.text = "\(protein)g"
+        self.carbsLabel.text = "\(carbs)g"
+        self.fatLabel.text = "\(fat)g"
+        self.caloriesLabel.text = "\(calories)"
+    }
+    
+    //  MARK: - listeners
+    func onUserChange(change: DatabaseChange) {
+        // Do nothing
+    }
+    
+    func onFoodListChange(change: DatabaseChange, foodList: [[String : Any]]) {
+        foodItems = foodList
+        self.convertFoodListToTableData()
+    }
 
     /*
     // MARK: - Navigation

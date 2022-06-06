@@ -40,6 +40,10 @@ class HomeViewController: UIViewController, DatabaseListener {
         }
     }
     
+    func onFoodListChange(change: DatabaseChange, foodList: [[String: Any]]) {
+        // Do nothing
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -32,7 +32,7 @@ class FoodData: NSObject, Decodable {
         
         foodName = try foodContainer.decode(String.self, forKey: .foodName)
         servingUnit = try foodContainer.decode(String.self, forKey: .servingUnit)
-        calories = try foodContainer.decode(Int.self, forKey: .calories)
+        calories = try? foodContainer.decode(Int.self, forKey: .calories)
         brandName = try foodContainer.decode(String.self, forKey: .brandName)
         nixItemId = try foodContainer.decode(String.self, forKey: .nixItemId)
         

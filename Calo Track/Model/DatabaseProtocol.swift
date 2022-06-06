@@ -21,9 +21,11 @@ enum ListenerType {
     case users
 }
 
+// TODO - ask tutor about separating listeners into sub listener (eg. UserDatabaseListener etc.)
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onUserChange(change: DatabaseChange)
+    func onFoodListChange(change: DatabaseChange, foodList: [[String: Any]])
 }
 
 
@@ -38,4 +40,7 @@ protocol DatabaseProtocol: AnyObject {
     func signUpUser(email: String, password: String)
     func signInUser(email: String, password: String)
     func signOutUser()
+    
+    func addMeal(_ data: [String: Any])
+    func getMealsForDate(_ date: Date) -> [String: Any]
 }
