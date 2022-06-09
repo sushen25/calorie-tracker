@@ -19,6 +19,8 @@ enum DatabaseChange {
 enum ListenerType {
     case all
     case users
+    case food
+    case weight
 }
 
 // TODO - ask tutor about separating listeners into sub listener (eg. UserDatabaseListener etc.)
@@ -26,6 +28,7 @@ protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onUserChange(change: DatabaseChange)
     func onFoodListChange(change: DatabaseChange, foodList: [[String: Any]])
+    func onWeightListChange(change: DatabaseChange, weightList: [[String: Any]])
 }
 
 
@@ -42,7 +45,7 @@ protocol DatabaseProtocol: AnyObject {
     func signOutUser()
     
     func addMeal(_ data: [String: Any])
-    func getMealsForDate(_ date: Date) -> [String: Any]
+    func getMealsForDate(_ date: Date)
     
     func addWeight(weight: Double, date: Date)
     func getWeightsForUser()

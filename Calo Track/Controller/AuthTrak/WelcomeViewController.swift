@@ -79,5 +79,9 @@ class WelcomeViewController: UIViewController, DatabaseListener {
     func onFoodListChange(change: DatabaseChange, foodList: [[String: Any]]) {
         // Do nothing
     }
+    
+    func onWeightListChange(change: DatabaseChange, weightList: [[String: Any]]) {
+        // Do nothing
+    }
 
 }

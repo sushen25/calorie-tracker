@@ -8,8 +8,27 @@
 import UIKit
 import Charts
 import TinyConstraints
+import FirebaseFirestore
 
-class WeightTrackViewController: UIViewController, ChartViewDelegate {
+
+class ChartValueFormatter: NSObject, IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        // https://stackoverflow.com/questions/40648284/using-dateformatter-on-a-unix-timestamp
+        let date = Date(timeIntervalSince1970: value)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "AEST")
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormatter.string(from: date)
+    }
+}
+
+
+class WeightTrackViewController: UIViewController, ChartViewDelegate, DatabaseListener {
+    var databaseController: DatabaseProtocol?
+    var listenerType: ListenerType = .weight
     
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
@@ -17,20 +36,47 @@ class WeightTrackViewController: UIViewController, ChartViewDelegate {
         chartView.rightAxis.enabled = false
         
         
+        // Set up yAxis
+        let yAxis = chartView.leftAxis
+        yAxis.labelFont = .boldSystemFont(ofSize: 12)
+        yAxis.setLabelCount(6, force: false)
+        yAxis.labelTextColor = .white
+        yAxis.axisLineColor = .white
+        yAxis.labelPosition = .outsideChart
+        
+        // Set up xAxis
+        let xAxis = chartView.xAxis
+        xAxis.valueFormatter = ChartValueFormatter()
+        xAxis.labelPosition = .bottom
+        xAxis.labelFont = .boldSystemFont(ofSize: 12)
+        xAxis.setLabelCount(4, force: false)
+        xAxis.labelTextColor = .white
+        xAxis.axisLineColor = .systemBlue
+        
+        
+        chartView.animate(xAxisDuration: 2.0)
+        
+        
         return chartView
     }()
+    var weightList: [[String: Any]] = [[String: Any]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
+        // Add chart to view
         view.addSubview(lineChartView)
         lineChartView.centerInSuperview()
         lineChartView.width(to: view)
         lineChartView.heightToWidth(of: view)
         
-        setData()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        databaseController?.addListener(listener: self)
     }
     
     // MARK: - chart methods
@@ -38,8 +84,13 @@ class WeightTrackViewController: UIViewController, ChartViewDelegate {
         print(entry)
     }
     
-    func setData() {
-        let set1 = LineChartDataSet(entries: chartData, label: "Weight")
+    func setData(_ data: [ChartDataEntry]) {
+        let set1 = LineChartDataSet(entries: data, label: "Weight")
+        
+        set1.circleRadius = CGFloat(4.0)
+        set1.lineWidth = 2
+        set1.setColor(.white)
+        set1.fill = Fill(color: .white)
         
         let data = LineChartData(dataSet: set1)
         lineChartView.data = data
@@ -55,6 +106,42 @@ class WeightTrackViewController: UIViewController, ChartViewDelegate {
         ChartDataEntry(x: 6.0, y: 36.0),
         ChartDataEntry(x: 7.0, y: 49.0),
     ]
+    
+    // MARK: - methods
+    func convertWeighListToChartData() {
+        print(weightList)
+        var chartData: [ChartDataEntry] = [ChartDataEntry]()
+        
+        for weightData in weightList {
+            let weightAmount = weightData["weight"] as! Double
+            let timestamp = weightData["date"] as! Timestamp
+            let data = ChartDataEntry(x: Double(timestamp.seconds) , y: weightAmount)
+            chartData.append(data)
+        }
+        
+        setData(chartData)
+    }
+    
+    // TODO - temp method remove when view connected to authentication and put in viewDidAppear
+    @IBAction func getChartData(_ sender: Any) {
+        databaseController?.getWeightsForUser()
+    }
+    
+    
+    
+    // MARK: - listeners
+    func onUserChange(change: DatabaseChange) {
+        // Do nothing
+    }
+    
+    func onFoodListChange(change: DatabaseChange, foodList: [[String : Any]]) {
+        // Do nothing
+    }
+    
+    func onWeightListChange(change: DatabaseChange, weightList: [[String : Any]]) {
+        self.weightList = weightList
+        convertWeighListToChartData()
+    }
     
 
     /*

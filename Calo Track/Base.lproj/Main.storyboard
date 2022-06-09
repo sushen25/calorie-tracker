@@ -362,6 +362,17 @@
                     <view key="view" contentMode="scaleToFill" id="Y5W-J2-wof">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0u-aT-xYz">
+                                <rect key="frame" x="147" y="814" width="121" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Get Chart Data"/>
+                                <connections>
+                                    <action selector="getChartData:" destination="HyM-rt-zVN" eventType="touchUpInside" id="mZd-BW-c5C"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bRJ-od-EBP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>

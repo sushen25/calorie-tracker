@@ -10,7 +10,7 @@ import UIKit
 class TrackingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DatabaseListener {
     
     var databaseController: DatabaseProtocol?
-    var listenerType: ListenerType = .users
+    var listenerType: ListenerType = .food
     
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var carbsLabel: UILabel!
@@ -176,6 +176,10 @@ class TrackingViewController: UIViewController, UITableViewDelegate, UITableView
     func onFoodListChange(change: DatabaseChange, foodList: [[String : Any]]) {
         foodItems = foodList
         self.convertFoodListToTableData()
+    }
+    
+    func onWeightListChange(change: DatabaseChange, weightList: [[String: Any]]) {
+        // Do nothing
     }
 
     /*

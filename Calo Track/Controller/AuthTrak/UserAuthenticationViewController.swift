@@ -74,6 +74,10 @@ class UserAuthenticationViewController: UIViewController, DatabaseListener {
         // Do nothing
     }
     
+    func onWeightListChange(change: DatabaseChange, weightList: [[String: Any]]) {
+        // Do nothing
+    }
+    
 
     /*
     // MARK: - Navigation

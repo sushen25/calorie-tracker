@@ -32,12 +32,15 @@ class DatabaseController: NSObject, DatabaseProtocol {
     var database: Firestore
     var currentUser: FirebaseAuth.User?
     var currentFoodList: [[String: Any]]
+    var weightsList: [[String: Any]]
     
     override init() {
         FirebaseApp.configure()
         authController = Auth.auth()
         database = Firestore.firestore()
         currentFoodList = [[String: Any]]()
+        weightsList = [[String: Any]]()
+        
         
         super.init()
         
@@ -137,7 +140,7 @@ class DatabaseController: NSObject, DatabaseProtocol {
         
     }
     
-    func getMealsForDate(_ date: Date) -> [String: Any] {
+    func getMealsForDate(_ date: Date) {
         
         if let user = currentUser {
             database.collection("User").document(user.uid).collection("Food").whereField("timeAdded", isDateInToday: date)
@@ -148,12 +151,12 @@ class DatabaseController: NSObject, DatabaseProtocol {
                     print(err)
                 } else {
                     for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
+                        // print("\(document.documentID) => \(document.data())")
                         self.currentFoodList.append(document.data())
                     }
                     
                     self.listeners.invoke() { listener in
-                        if listener.listenerType == .users || listener.listenerType == .all {
+                        if listener.listenerType == .food || listener.listenerType == .all {
                             listener.onFoodListChange(change: .update, foodList: self.currentFoodList)
                         }
                     }
@@ -161,10 +164,9 @@ class DatabaseController: NSObject, DatabaseProtocol {
                 
                     
             }
+        } else {
+            print("Error: User not logged in! Cannot retrieve ")
         }
-        
-        
-        return ["lol": 1]
     }
     
     // MARK: - Weights
@@ -194,6 +196,33 @@ class DatabaseController: NSObject, DatabaseProtocol {
     }
     
     func getWeightsForUser() {
+        if let user = currentUser {
+            database.collection("User").document(user.uid).collection("Weight").order(by: "date")
+                .getDocuments() { (querySnapshot, err) in
+                    
+                if let err = err {
+                    print("Error retreiving weights for user \(user)")
+                    print(err)
+                } else {
+                    for document in querySnapshot!.documents {
+//                        print("\(document.documentID) => \(document.data())")
+                        self.weightsList.append(document.data())
+                    }
+                    
+                    self.listeners.invoke() { listener in
+                        if listener.listenerType == .weight || listener.listenerType == .all {
+                            listener.onWeightListChange(change: .update, weightList: self.weightsList)
+                        }
+                    }
+                }
+                
+                    
+            }
+        } else {
+            print("Error: User not logged in! Cannot retrieve weight data")
+        }
+        
+        
         
     }
     
